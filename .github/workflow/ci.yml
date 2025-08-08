@@ -1,0 +1,16 @@
+name: HTML Validation
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate HTML
+        run: |
+          if ! grep -q "<!DOCTYPE html>" index.html; then
+            echo "❌ Missing DOCTYPE declaration!"
+            exit 1
+          fi
+          echo "✅ HTML looks good!"
